@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'array-callback-return': 'off'
+    'array-callback-return': 'off',
+    'eslintno-unused-expressions': 'off',
   },
 };
