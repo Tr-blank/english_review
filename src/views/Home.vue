@@ -4,9 +4,9 @@
     .list(v-for="item in viewList")
       .list__title {{item.origin}}
       .list__row
-        a.list__column(v-for="word in item.words" :href="word.google")
+        .list__column(v-for="word in item.words")
           |{{word.english}}
-          span.list__chinese {{word.chinese}}
+          a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
 </template>
 
 <script>
@@ -39,6 +39,7 @@ export default {
             origin: word.gsx$origin.$t,
             tag: word.gsx$tag.$t,
             google: word.gsx$google.$t,
+            level: word.gsx$level.$t,
           });
           if (!this.origins.includes(word.gsx$origin.$t)) this.origins.push(word.gsx$origin.$t);
           if (!this.tags.includes(word.gsx$tag.$t)) this.tags.push(word.gsx$tag.$t);
@@ -52,6 +53,16 @@ export default {
         console.log(this.allWords);
         console.log(this.origins);
         console.log(this.viewList);
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
+    axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/2/public/values?alt=json')
+      .then((response) => {
+        // handle success
+        // this.allWords = response.data.feed.entry;
+        console.log(response.data.feed.entry);
       })
       .catch((error) => {
         // handle error
@@ -107,7 +118,7 @@ a
     transition: opacity .35s ease;
   &__column
     display: block;
-    width: 20%;
+    width: 25%;
     font-weight: bold;
     &:hover ^[-1]__chinese
       opacity: 1;
