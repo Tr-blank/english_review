@@ -1,7 +1,10 @@
 /* eslint-disable array-callback-return */
 <template  lang="pug">
   main.home
-    .list(v-for="item in viewList")
+    .control
+      span(@click="clickViewStyleControl('table')") 背誦
+      span(@click="clickViewStyleControl('list')") 詳細
+    .list(v-for="item in viewList" :class="viewStyleClass")
       .list__title {{item.origin}}
       .list__row
         .list__column(v-for="word in item.words")
@@ -24,7 +27,13 @@ export default {
       origins: [],
       tags: [],
       viewList: [],
+      viewStyle: 'table',
     };
+  },
+  computed: {
+    viewStyleClass() {
+      return this.viewStyle === 'table' ? 'list-view--table' : 'list-view--list';
+    },
   },
   created() {
     axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/1/public/values?alt=json')
@@ -86,6 +95,11 @@ export default {
     //       });
     //   });
   },
+  methods: {
+    clickViewStyleControl(key) {
+      this.viewStyle = key;
+    },
+  },
 };
 </script>
 
@@ -118,8 +132,13 @@ a
     transition: opacity .35s ease;
   &__column
     display: block;
-    width: 25%;
     font-weight: bold;
     &:hover ^[-1]__chinese
       opacity: 1;
+  &-view--table
+    & ^[-1]__column
+      width: 25%;
+  &-view--list
+    & ^[-1]__column
+      width: 100%;
 </style>
