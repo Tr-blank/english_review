@@ -77,23 +77,6 @@ export default {
         // handle error
         console.log(error);
       });
-    // this.$getGapiClient()
-    //   .then((gapi) => {
-    //     const params = {
-    //       spreadsheetId: '189SYJL3Aw9sFlG6Jknqytg4e6Ot9JPKmXuXHmtJVB6U',
-    //       range: 'A1:D2',
-    //       valueRenderOption: 'FORMATTED_VALUE',
-    //       dateTimeRenderOption: 'FORMATTED_STRING',
-    //     };
-    //     gapi.client.sheets.spreadsheets.values.get(params)
-    //       .then((response) => {
-    //         const data = response.result.values;
-    //         console.log(data);
-    //       })
-    //       .catch((error) => {
-    //         console.log('Error', error.message);
-    //       });
-    //   });
   },
   methods: {
     clickViewStyleControl(key) {
