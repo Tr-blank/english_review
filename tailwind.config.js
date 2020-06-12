@@ -1,11 +1,15 @@
 module.exports = {
+  purge: [
+    './src/**/*.html',
+    './src/**/*.vue',
+  ],
   separator: '_',
   theme: {
     colors: {
       'grey-lighter': '#c5c5c5',
       'grey-light': '#858585',
       grey: '#404040',
-      'grey-dark': '#333333',
+      'grey-dark': '#323233',
       'grey-darker': '#252526',
       'grey-darkest': '#1e1e1e',
     },
