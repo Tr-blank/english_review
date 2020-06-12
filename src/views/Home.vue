@@ -1,15 +1,18 @@
 /* eslint-disable array-callback-return */
 <template  lang="pug">
   main.home
-    .control
-      span(@click="clickViewStyleControl('table')") 背誦
-      span(@click="clickViewStyleControl('list')") 詳細
-    .list(v-for="item in viewList" :class="viewStyleClass")
-      .list__title {{item.origin}}
-      .list__row
-        .list__column(v-for="word in item.words")
-          |{{word.english}}
-          a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
+    div.w-4_5
+      .text-right
+        span(@click="clickViewStyleControl('table')") 背誦
+        span(@click="clickViewStyleControl('list')") 詳細
+      section.list(v-for="item in viewList" :class="viewStyleClass")
+        .list__title {{item.origin}}
+        .list__row
+          .list__column(v-for="word in item.words")
+            |{{word.english}}
+            a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
+    aside.w-1_5
+
 </template>
 
 <script>
@@ -59,9 +62,9 @@ export default {
             words: this.allWords.filter((word) => word.origin === origin),
           });
         });
-        console.log(this.allWords);
-        console.log(this.origins);
-        console.log(this.viewList);
+        console.log('allWords', this.allWords);
+        console.log('origins', this.origins);
+        console.log('viewList', this.viewList);
       })
       .catch((error) => {
         // handle error
@@ -98,11 +101,12 @@ a
   text-decoration: none;
   color: #2c3e50;
 .home
-  max-width: 1024px;
-  margin: 0 auto;
+  max-width: 1440px;
+  @apply mx-auto flex;
 .list
-  text-align: left;
-  line-height: 2rem;
+  @apply pb-8 text-left leading-8;
+  &__title
+    @apply pb-2 text-xl font-semibold;
   &__row
     display: flex;
     flex-wrap: wrap;
