@@ -1,39 +1,41 @@
 /* eslint-disable array-callback-return */
-<template  lang="pug">
-  main.home
-    aside.w-1_5.pl-4.text-left
-      .filter
-        .filter__title 篩選
-        .filter__category tags
-        div(v-for="tag in tags")
-          input(
-            type="checkbox"
-            :id="filterList[tag]"
-            :value="tag"
-            v-model="filterTags"
-            @change="filterEvent()"
-          )
-          label.filter__item(:for="filterList[tag]") {{tag}}
-        .filter__category 來源
-        div(v-for="origin in origins")
-          input(
-            type="checkbox"
-            :id="filterList[origin]"
-            :value="origin"
-            @change="filterEvent()"
-            v-model="filterOrigins"
-          )
-          label.filter__item(:for="filterList[origin]") {{origin}}
-    div.w-4_5.pr-4
-      .text-right
-        span(@click="clickViewStyleControl('table')") 背誦
-        span(@click="clickViewStyleControl('list')") 詳細
-      section.list(v-for="item in viewList" :class="viewStyleClass")
-        h3.list__title {{item.origin}}
-        .list__row
-          .list__column(v-for="word in item.words")
-            |{{word.english}}
-            a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
+<template lang="pug">
+  main
+    h1.header Engilsh Words Note
+    .flex
+      aside.w-1_5.p-4.text-left.bg-grey-dark
+        .filter
+          .filter__title 篩選
+          .filter__category tags
+          .pl-4(v-for="tag in tags")
+            input(
+              type="checkbox"
+              :id="filterList[tag]"
+              :value="tag"
+              v-model="filterTags"
+              @change="filterEvent()"
+            )
+            label.filter__item(:for="filterList[tag]") {{tag}}
+          .filter__category 來源
+          .pl-4(v-for="origin in origins")
+            input(
+              type="checkbox"
+              :id="filterList[origin]"
+              :value="origin"
+              @change="filterEvent()"
+              v-model="filterOrigins"
+            )
+            label.filter__item(:for="filterList[origin]") {{origin}}
+      div.w-4_5.pl-8
+        .text-right
+          span(@click="clickViewStyleControl('table')") 背誦
+          span(@click="clickViewStyleControl('list')") 詳細
+        section.list(v-for="item in viewList" :class="viewStyleClass")
+          h3.list__title {{item.origin}}
+          .list__row
+            .list__column(v-for="word in item.words")
+              |{{word.english}}
+              a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
 </template>
 
 <script>
@@ -146,33 +148,25 @@ export default {
 </script>
 
 <style lang="stylus">
-#app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
 a
   text-decoration: none;
   color: #2c3e50;
-.home
-  max-width: 1440px;
-  @apply mx-auto flex;
+.header
+  @apply bg-grey-dark text-grey-lighter text-center text-xs p-1 font-semibold;
 .list
+  font-family: Menlo, Monaco, "Courier New", monospace, Avenir, Helvetica, Arial, sans-serif;
   @apply pb-8 text-left leading-8;
   &__title
     @apply pb-2 text-xl font-semibold;
   &__row
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 1px solid #eee;
+    @apply border-b border-grey border-solid;
   &__chinese
     padding-left: .5rem;
-    font-weight: bold;
     opacity: 0;
-    color: #9aa3ad;
     transition: opacity .35s ease;
+    @apply text-grey-light;
   &__column
     display: block;
     font-weight: bold;
