@@ -91,19 +91,19 @@ export default {
         // handle error
         console.log(error);
       });
-    axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/3/public/values?alt=json')
-      .then((response) => {
-        // handle success
-        // this.allWords = response.data.feed.entry;
-        response.data.feed.entry.forEach((filter) => {
-          this.filterList[filter.gsx$name.$t] = filter.gsx$id.$t;
-        });
-        console.log('filter', this.filterList);
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    // axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/3/public/values?alt=json')
+    //   .then((response) => {
+    //     // handle success
+    //     // this.allWords = response.data.feed.entry;
+    //     response.data.feed.entry.forEach((filter) => {
+    //       this.filterList[filter.gsx$name.$t] = filter.gsx$id.$t;
+    //     });
+    //     console.log('filter', this.filterList);
+    //   })
+    //   .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    //   });
   },
   methods: {
     clickViewStyleControl(key) {
