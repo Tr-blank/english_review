@@ -4,11 +4,11 @@
     .flex
       aside.aside
         .aside__title 顯示
-        .py-2.pl-4(@click="clickViewStyleControl('table')") 表格
-        .py-2.pl-4(@click="clickViewStyleControl('list')") 詳細
+        .py-2.pl-4(@click="clickViewStyleControl('table')" :class="{'bg-grey': viewStyle === 'table'}") 表格
+        .py-2.pl-4(@click="clickViewStyleControl('list')" :class="{'bg-grey': viewStyle === 'list'}") 詳細
         .aside__title 篩選
         .filter__category tags
-        .pl-4(v-for="tag in tags")
+        .pl-4.pl-8(v-for="tag in tags")
           input(
             type="checkbox"
             :id="filterList[tag]"
@@ -18,7 +18,7 @@
           )
           label.filter__item(:for="filterList[tag]") {{tag}}
         .filter__category 來源
-        .pl-4(v-for="origin in origins")
+        .pl-4.pl-8(v-for="origin in origins")
           input(
             type="checkbox"
             :id="filterList[origin]"
@@ -160,29 +160,31 @@ a
     @apply flex flex-wrap border-b border-grey border-solid;
   &__column
     @apply block relative font-semibold;
-  &__english:hover
-    & + ^[-1]__chinese
-      top: 100%;
-      @apply block;
-  &__chinese
-    top: 0;
-    @apply text-grey-light absolute left-0 px-2 hidden border border-grey-light border-solid bg-grey-dark z-10;
+    & ^[-1]__chinese
+      @apply pl-4;
   &-view--table
     & ^[-1]__column
       flex: 0 0 300px;
+    & ^[-1]__english:hover
+      & + ^[-2]__chinese
+        top: 100%;
+        @apply block;
+    & ^[-1]__chinese
+      top: 0;
+      @apply text-grey-light absolute left-0 px-2 hidden border border-grey-light border-solid bg-grey-dark z-10;
   &-view--list
     & ^[-1]__column
       width: 100%;
 .aside
   width: 200px;
-  @apply  px-4 text-left bg-grey-dark;
+  @apply text-left bg-grey-dark;
   &__title
-    @apply pt-4 text-xl font-semibold;
+    @apply px-4 pt-4 text-xl font-semibold;
 .filter
   &__item
-    @apply p-2 inline-block;
+    @apply px-4 py-2 inline-block;
   &__category
-    @apply font-semibold pt-2;
+    @apply px-4 font-semibold pt-2;
 .content
   width: calc(100% - 200px);
   @apply pl-8 pt-4;
