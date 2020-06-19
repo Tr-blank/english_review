@@ -1,40 +1,38 @@
-/* eslint-disable array-callback-return */
 <template lang="pug">
   main
     h1.header Engilsh Words Note
     .flex
-      aside.w-1_5.p-4.text-left.bg-grey-dark
-        .filter
-          .filter__title 篩選
-          .filter__category tags
-          .pl-4(v-for="tag in tags")
-            input(
-              type="checkbox"
-              :id="filterList[tag]"
-              :value="tag"
-              v-model="filterTags"
-              @change="filterEvent()"
-            )
-            label.filter__item(:for="filterList[tag]") {{tag}}
-          .filter__category 來源
-          .pl-4(v-for="origin in origins")
-            input(
-              type="checkbox"
-              :id="filterList[origin]"
-              :value="origin"
-              @change="filterEvent()"
-              v-model="filterOrigins"
-            )
-            label.filter__item(:for="filterList[origin]") {{origin}}
-      div.w-4_5.pl-8
-        .text-right
-          span(@click="clickViewStyleControl('table')") 背誦
-          span(@click="clickViewStyleControl('list')") 詳細
-        section.list(v-for="item in viewList" :class="viewStyleClass")
+      aside.aside
+        .aside__title 顯示
+        .py-2.pl-4(@click="clickViewStyleControl('table')") 表格
+        .py-2.pl-4(@click="clickViewStyleControl('list')") 詳細
+        .aside__title 篩選
+        .filter__category tags
+        .pl-4(v-for="tag in tags")
+          input(
+            type="checkbox"
+            :id="filterList[tag]"
+            :value="tag"
+            v-model="filterTags"
+            @change="filterEvent()"
+          )
+          label.filter__item(:for="filterList[tag]") {{tag}}
+        .filter__category 來源
+        .pl-4(v-for="origin in origins")
+          input(
+            type="checkbox"
+            :id="filterList[origin]"
+            :value="origin"
+            @change="filterEvent()"
+            v-model="filterOrigins"
+          )
+          label.filter__item(:for="filterList[origin]") {{origin}}
+      div.content(:class="viewStyleClass")
+        section.list(v-for="item in viewList")
           h3.list__title {{item.origin}}
           .list__row
             .list__column(v-for="word in item.words")
-              |{{word.english}}
+              span.list__english {{word.english}}
               a.list__chinese(:href="word.google" target="_blank") {{word.chinese}}
 </template>
 
@@ -159,30 +157,33 @@ a
   &__title
     @apply pb-2 text-xl font-semibold;
   &__row
-    display: flex;
-    flex-wrap: wrap;
-    @apply border-b border-grey border-solid;
-  &__chinese
-    padding-left: .5rem;
-    opacity: 0;
-    transition: opacity .35s ease;
-    @apply text-grey-light;
+    @apply flex flex-wrap border-b border-grey border-solid;
   &__column
-    display: block;
-    font-weight: bold;
-    &:hover ^[-1]__chinese
-      opacity: 1;
+    @apply block relative font-semibold;
+  &__english:hover
+    & + ^[-1]__chinese
+      top: 100%;
+      @apply block;
+  &__chinese
+    top: 0;
+    @apply text-grey-light absolute left-0 px-2 hidden border border-grey-light border-solid bg-grey-dark z-10;
   &-view--table
     & ^[-1]__column
-      width: 25%;
+      flex: 0 0 300px;
   &-view--list
     & ^[-1]__column
       width: 100%;
+.aside
+  width: 200px;
+  @apply  px-4 text-left bg-grey-dark;
+  &__title
+    @apply pt-4 text-xl font-semibold;
 .filter
   &__item
     @apply p-2 inline-block;
   &__category
     @apply font-semibold pt-2;
-  &__title
-    @apply pb-2 text-xl font-semibold;
+.content
+  width: calc(100% - 200px);
+  @apply pl-8 pt-4;
 </style>

@@ -15,5 +15,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'array-callback-return': 'off',
     'eslintno-unused-expressions': 'off',
+    'max-len': 'off'
   },
 };
