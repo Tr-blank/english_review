@@ -23,7 +23,7 @@ const store = new Vuex.Store({
   },
   actions: {
     getAllWords: async (contex) => {
-      await axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/1/public/values?alt=json')
+      await axios.get('https://spreadsheets.google.com/feeds/list/15g97v18ZaJxjDIZh_IRNuBok_sR-CrU-I1xHfsimZuM/2/public/values?alt=json')
         .then((response) => {
           const allWords = [];
           response.data.feed.entry.forEach((word) => {

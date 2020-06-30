@@ -27,9 +27,11 @@
             div.p-2(v-for="word in viewList.words") {{word.english}}
 </template>
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 import Nav from '@/components/Nav.vue';
 import { mapState } from 'vuex';
+
+// https://script.google.com/macros/s/AKfycbzLQBRQz9P_673ZM3m8rtCrqaxansAKqiRr1Ze2bmU0j8w8T-Pd/exec
 
 export default {
   name: 'Home',
@@ -81,6 +83,24 @@ export default {
       const max = this.viewList.words.lenth;
       this.randomHandler(max);
       this.focusWord = this.viewList.words[this.randomCount];
+      this.isChinessVisible = false;
+      this.postData();
+    },
+    postData() {
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const dateString = `${today.getFullYear()}-${
+        month < 10 ? `0${month}` : month
+      }-${
+        today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()
+      }`;
+      axios.get(`https://script.google.com/macros/s/AKfycbzLQBRQz9P_673ZM3m8rtCrqaxansAKqiRr1Ze2bmU0j8w8T-Pd/exec?date=${dateString}&english=${this.focusWord.english}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
